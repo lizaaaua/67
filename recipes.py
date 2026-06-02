@@ -19,7 +19,7 @@ class Ingredient:
         value = float(value)
 
         if value <= 0:
-            raise ValueError
+            raise ValueError("Количество должно быть положительным")
 
         self._quantity = value
 
