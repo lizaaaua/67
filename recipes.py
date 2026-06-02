@@ -1,5 +1,3 @@
-from typing import List, Optional
-
 class Ingredient:
 
     def __init__(self, name: str, quantity: float, unit: str):
