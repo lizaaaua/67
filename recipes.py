@@ -1,4 +1,5 @@
 from typing import List, Optional
+
 class Ingredient:
 
     def __init__(self, name: str, quantity: float, unit: str):
@@ -87,7 +88,53 @@ class Recipe:
 
 
 class ShoppingList:
-    pass
+    def __init__(self):
+        self._items = []
+
+    def add_recipe(self, recipe: Recipe, portions: float) -> None:
+        if portions <= 0:
+            raise ValueError("Количество порций должно быть положительным")
+
+        scaled_recipe = recipe.scale(portions)
+
+        for ingredient in scaled_recipe.ingredients:
+            self._items.append((ingredient, recipe.title))
+
+    def remove_recipe(self, title: str) -> None:
+        new_items = []
+
+        for ingredient, recipe_title in self._items:
+            if recipe_title != title:
+                new_items.append((ingredient, recipe_title))
+
+        self._items = new_items
+
+    def get_list(self) -> List[Ingredient]:
+        result = {}
+
+        for ingredient, recipe_title in self._items:
+            key = (ingredient.name, ingredient.unit)
+
+            if key not in result:
+                result[key] = 0
+
+            result[key] += ingredient.quantity
+
+        shopping_list = []
+
+        for key in result:
+            name, unit = key
+            quantity = result[key]
+            shopping_list.append(Ingredient(name, quantity, unit))
+
+        shopping_list.sort(key=lambda ingredient: ingredient.name)
+
+        return shopping_list
+
+    def __add__(self, other):
+        new_list = ShoppingList()
+        new_list._items = self._items.copy() + other._items.copy()
+        return new_list
 
 
 class DietaryRecipe:
