@@ -1,6 +1,6 @@
 import pytest
 
-from recipes import Ingredient, Recipe, ShoppingList
+from recipes import Ingredient, Recipe, ShoppingList, DietaryRecipe
 
 def test_ingredient_creation():
     ingredient = Ingredient("Мука", 500, "г")
@@ -185,3 +185,32 @@ def test_shopping_list_add_two_lists():
     assert len(result) == 2
     assert len(first_list.get_list()) == 1
     assert len(second_list.get_list()) == 1
+def test_dietary_recipe_creation():
+    recipe = DietaryRecipe("Салат", "веган", [
+        Ingredient("Огурец", 2, "шт")
+    ])
+
+    assert recipe.title == "Салат"
+    assert recipe.diet_type == "веган"
+    assert len(recipe) == 1
+
+
+def test_dietary_recipe_scale_returns_dietary_recipe():
+    recipe = DietaryRecipe("Салат", "веган", [
+        Ingredient("Огурец", 2, "шт")
+    ])
+
+    scaled_recipe = recipe.scale(3)
+
+    assert isinstance(scaled_recipe, DietaryRecipe)
+    assert scaled_recipe.title == "Салат"
+    assert scaled_recipe.diet_type == "веган"
+    assert scaled_recipe.ingredients[0].quantity == 6.0
+
+
+def test_dietary_recipe_str_contains_diet_type():
+    recipe = DietaryRecipe("Салат", "веган", [
+        Ingredient("Огурец", 2, "шт")
+    ])
+
+    assert str(recipe).startswith("[веган]")
