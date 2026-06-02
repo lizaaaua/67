@@ -41,7 +41,7 @@ class Recipe:
         self._ingredients = ingredients if ingredients is not None else []
 
     @property
-    def ingredients(self)::
+    def ingredients(self):
         return self._ingredients.copy()
 
     def add_ingredient(self, ingredient: Ingredient) -> None:
@@ -107,7 +107,7 @@ class ShoppingList:
 
         self._items = new_items
 
-    def ingredients(self)::
+    def ingredients(self):
         result = {}
 
         for ingredient, recipe_title in self._items:
