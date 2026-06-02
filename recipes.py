@@ -107,7 +107,7 @@ class ShoppingList:
 
         self._items = new_items
 
-    def ingredients(self):
+    def get_list(self):
         result = {}
 
         for ingredient, recipe_title in self._items:
@@ -136,7 +136,7 @@ class ShoppingList:
 
 
 class DietaryRecipe(Recipe):
-    def __init__(self, title: str, diet_type: str, ingredients=None)::
+    def __init__(self, title: str, diet_type: str, ingredients=None):
         super().__init__(title, ingredients)
         self.diet_type = diet_type
 
