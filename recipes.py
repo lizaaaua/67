@@ -36,12 +36,12 @@ class Ingredient:
         return self.name == other.name and self.unit == other.unit
 
 class Recipe:
-    def __init__(self, title: str, ingredients: Optional[List[Ingredient]] = None):
+    def __init__(self, title: str, ingredients=None):
         self.title = title
         self._ingredients = ingredients if ingredients is not None else []
 
     @property
-    def ingredients(self) -> List[Ingredient]:
+    def ingredients(self)::
         return self._ingredients.copy()
 
     def add_ingredient(self, ingredient: Ingredient) -> None:
@@ -107,7 +107,7 @@ class ShoppingList:
 
         self._items = new_items
 
-    def get_list(self) -> List[Ingredient]:
+    def ingredients(self)::
         result = {}
 
         for ingredient, recipe_title in self._items:
@@ -136,7 +136,7 @@ class ShoppingList:
 
 
 class DietaryRecipe(Recipe):
-    def __init__(self, title: str, diet_type: str, ingredients: Optional[List[Ingredient]] = None):
+    def __init__(self, title: str, diet_type: str, ingredients=None)::
         super().__init__(title, ingredients)
         self.diet_type = diet_type
 
